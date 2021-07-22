@@ -53,4 +53,8 @@ public class DBService {
         List<Todo> closed = iTodoRepository.findAllClosed();
         return closed;
     }
+
+    public void deleteTodo(Integer idTodo) {
+        iTodoRepository.deleteById(idTodo);
+    }
 }

@@ -1,7 +1,6 @@
 package br.com.todolist.Todo.List.controllers;
 
 import br.com.todolist.Todo.List.entity.Todo;
-import br.com.todolist.Todo.List.repositories.ITodoRepository;
 import br.com.todolist.Todo.List.services.DBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,20 +29,27 @@ public class TodoController {
     public ResponseEntity<List<Todo>> getTodoListActive() throws Exception{
         List<Todo> listActive = dbService.findAllOpen();
         return ResponseEntity.ok().body(listActive);
-
     }
 
     @GetMapping("/closed")
     public ResponseEntity<List<Todo>> getTodoListClosed() throws Exception{
         List<Todo> listClosed = dbService.findAllClosed();
         return ResponseEntity.ok().body(listClosed);
-
     }
-
-
 
     @PostMapping
     public Todo createTodo(@RequestBody Todo todo){
         return dbService.saveTodo(todo);
+    }
+
+    @DeleteMapping("/{idTodo}")
+    public ResponseEntity deleteByID(@PathVariable("idTodo") Integer idTodo) throws Exception {
+        try {
+            dbService.deleteTodo(idTodo);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return ResponseEntity.noContent().build();
+
     }
 }
