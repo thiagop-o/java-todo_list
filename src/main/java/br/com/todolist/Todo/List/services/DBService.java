@@ -26,7 +26,7 @@ public class DBService {
     public void instanciaDB(){
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         Todo t1 = new Todo("Estudar", "Estudar SpringBoot 2", LocalDateTime.now(),LocalDateTime.parse("25/03/2022 10:40",dateFormatter),false);
-        Todo t2 = new Todo("Estudar", "Estudar Angular", LocalDateTime.now(),LocalDateTime.parse("25/04/2022 10:40",dateFormatter),false);
+        Todo t2 = new Todo("Estudar", "Estudar Angular", LocalDateTime.now(),LocalDateTime.parse("25/04/2022 10:40",dateFormatter),true);
         Todo t3 = new Todo("Estudar", "Estudar Angular", LocalDateTime.now(),LocalDateTime.parse("25/04/2022 10:40",dateFormatter),false);
         iTodoRepository.saveAll(Arrays.asList(t1,t2,t3));
     }
@@ -44,4 +44,13 @@ public class DBService {
 
     }
 
+    public List<Todo> findAllOpen() {
+        List<Todo> active = iTodoRepository.findAllOpen();
+        return active;
+    }
+
+    public List<Todo> findAllClosed() {
+        List<Todo> closed = iTodoRepository.findAllClosed();
+        return closed;
+    }
 }

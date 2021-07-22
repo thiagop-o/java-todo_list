@@ -26,6 +26,22 @@ public class TodoController {
         return ResponseEntity.ok(dbService.getById(idTodo).orElseThrow(() -> new NoSuchElementException("Not Found!")));
     }
 
+    @GetMapping("/active")
+    public ResponseEntity<List<Todo>> getTodoListActive() throws Exception{
+        List<Todo> listActive = dbService.findAllOpen();
+        return ResponseEntity.ok().body(listActive);
+
+    }
+
+    @GetMapping("/closed")
+    public ResponseEntity<List<Todo>> getTodoListClosed() throws Exception{
+        List<Todo> listClosed = dbService.findAllClosed();
+        return ResponseEntity.ok().body(listClosed);
+
+    }
+
+
+
     @PostMapping
     public Todo createTodo(@RequestBody Todo todo){
         return dbService.saveTodo(todo);
