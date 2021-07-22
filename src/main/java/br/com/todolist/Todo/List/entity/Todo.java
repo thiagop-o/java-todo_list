@@ -20,15 +20,17 @@ public class Todo implements Serializable {
 
     private String titulo;
     private String descricao;
+    private LocalDateTime dataDeCriacao;
     private LocalDateTime dataParaFinalizar;
     private Boolean finalizado = false;
 
     public Todo() {
     }
 
-    public Todo(String titulo, String descricao, LocalDateTime dataParaFinalizar, Boolean finalizado) {
+    public Todo(String titulo, String descricao, LocalDateTime dataDeCriacao , LocalDateTime dataParaFinalizar, Boolean finalizado) {
         this.titulo = titulo;
         this.descricao = descricao;
+        this.dataDeCriacao = dataDeCriacao;
         this.dataParaFinalizar = dataParaFinalizar;
         this.finalizado = finalizado;
     }

@@ -5,10 +5,7 @@ import br.com.todolist.Todo.List.repositories.ITodoRepository;
 import br.com.todolist.Todo.List.services.DBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -27,5 +24,10 @@ public class TodoController {
     @GetMapping("/{idTodo}")
     public ResponseEntity<Todo> getTodoByID(@PathVariable("idTodo") Integer idTodo) throws Exception{
         return ResponseEntity.ok(dbService.getById(idTodo).orElseThrow(() -> new NoSuchElementException("Not Found!")));
+    }
+
+    @PostMapping
+    public Todo createTodo(@RequestBody Todo todo){
+        return dbService.saveTodo(todo);
     }
 }
