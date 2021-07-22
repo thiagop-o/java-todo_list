@@ -1,6 +1,7 @@
 package br.com.todolist.Todo.List.controllers;
 
 import br.com.todolist.Todo.List.entity.Todo;
+import br.com.todolist.Todo.List.exceptions.ObjectNotFoundException;
 import br.com.todolist.Todo.List.services.DBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,8 @@ public class TodoController {
 
     @GetMapping("/{idTodo}")
     public ResponseEntity<Todo> getTodoByID(@PathVariable("idTodo") Integer idTodo) throws Exception{
-        return ResponseEntity.ok(dbService.getById(idTodo).orElseThrow(() -> new NoSuchElementException("Not Found!")));
+        return ResponseEntity.ok(dbService.getById(idTodo).orElseThrow(() ->
+                new ObjectNotFoundException("Objeto de ID: "+ idTodo + " Não Encontrado")));
     }
 
     @GetMapping("/active")
@@ -40,6 +42,11 @@ public class TodoController {
     @PostMapping
     public Todo createTodo(@RequestBody Todo todo){
         return dbService.saveTodo(todo);
+    }
+
+    @PutMapping
+    public Todo updateTodo(@RequestBody Todo todo){
+        return dbService.updateTodo(todo);
     }
 
     @DeleteMapping("/{idTodo}")

@@ -6,6 +6,8 @@ import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -53,6 +55,13 @@ public class DBService {
         List<Todo> closed = iTodoRepository.findAllClosed();
         return closed;
     }
+
+    public Todo updateTodo(Todo todo){
+        return iTodoRepository.save(todo);
+
+    }
+
+
 
     public void deleteTodo(Integer idTodo) {
         iTodoRepository.deleteById(idTodo);
