@@ -2,16 +2,18 @@ package br.com.todolist.Todo.List.services;
 
 import br.com.todolist.Todo.List.entity.Todo;
 import br.com.todolist.Todo.List.repositories.ITodoRepository;
-import org.apache.tomcat.jni.Local;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Service;
+
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+
 import java.util.Arrays;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -25,12 +27,13 @@ public class DBService {
     }
 
 
-    public void instanciaDB(){
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        Todo t1 = new Todo("Estudar", "Estudar SpringBoot 2", LocalDateTime.now(),LocalDateTime.parse("25/03/2022 10:40",dateFormatter),false);
-        Todo t2 = new Todo("Estudar", "Estudar Angular", LocalDateTime.now(),LocalDateTime.parse("25/04/2022 10:40",dateFormatter),true);
-        Todo t3 = new Todo("Estudar", "Estudar Angular", LocalDateTime.now(),LocalDateTime.parse("25/04/2022 10:40",dateFormatter),false);
-        iTodoRepository.saveAll(Arrays.asList(t1,t2,t3));
+    public void instanciaDB() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Todo t1 = new Todo("Estudar", "Estudar SpringBoot 2", sdf.parse("25/03/2022"),false);
+        Todo t2 = new Todo("Ler", "Estudar Angular",sdf.parse("25/04/2022"),true);
+        Todo t3 = new Todo("Trabalhar", "Estudar Angular", sdf.parse("25/04/2022"),false);
+        Todo t4 = new Todo("Meditar", "Estudar Angular", sdf.parse("25/04/2022"),false);
+        iTodoRepository.saveAll(Arrays.asList(t1,t2,t3,t4));
     }
 
     public List<Todo> findAll() {

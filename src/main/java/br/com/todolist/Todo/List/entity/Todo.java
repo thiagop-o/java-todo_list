@@ -1,5 +1,6 @@
 package br.com.todolist.Todo.List.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -7,7 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 @Entity
@@ -20,17 +22,16 @@ public class Todo implements Serializable {
 
     private String titulo;
     private String descricao;
-    private LocalDateTime dataDeCriacao;
-    private LocalDateTime dataParaFinalizar;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private Date dataParaFinalizar;
     private Boolean finalizado = false;
 
     public Todo() {
     }
 
-    public Todo(String titulo, String descricao, LocalDateTime dataDeCriacao , LocalDateTime dataParaFinalizar, Boolean finalizado) {
+    public Todo(String titulo, String descricao , Date dataParaFinalizar, Boolean finalizado) {
         this.titulo = titulo;
         this.descricao = descricao;
-        this.dataDeCriacao = dataDeCriacao;
         this.dataParaFinalizar = dataParaFinalizar;
         this.finalizado = finalizado;
     }

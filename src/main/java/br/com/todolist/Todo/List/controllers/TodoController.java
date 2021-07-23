@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/main")
 public class TodoController {
@@ -44,7 +45,7 @@ public class TodoController {
         return dbService.saveTodo(todo);
     }
 
-    @PutMapping
+    @PutMapping("/{idTodo}")
     public Todo updateTodo(@RequestBody Todo todo){
         return dbService.updateTodo(todo);
     }
